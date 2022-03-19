@@ -130,6 +130,7 @@ Tasks to Complete Overview:
 [x] Task 0: Inspect the data. (data/neos.csv and data/cad.json). You already did this!
 [ ] Task 1: Build models to represent the data. (models.py)
     * Write __init__ and __str__ methods for NearEarthObject and CloseApproach
+    * __str__ vs __rpr__ ??
 [ ] Task 2: Extract the data into a custom database (2a. extract.py and 2.b database.py)
     - able to run the inspect subcommand.
         Task 2a: Extract data. (extract.py): Implement load_neos and load_approaches to read data from CSV and JSON files.
