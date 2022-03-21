@@ -9,8 +9,7 @@ CSVInputFile =  'data/neos.csv'
 with open(CSVInputFile, newline='') as csv_file:
     reader = csv.DictReader(csv_file)
 
-    # print(reader.fieldnames)
-    # print('\n')
+    print(reader.fieldnames)
     
     for row in reader:
         count +=1
@@ -19,7 +18,7 @@ with open(CSVInputFile, newline='') as csv_file:
 with open(CSVInputFile, newline='') as csv_file:
     reader = csv.DictReader(csv_file)
     for row in reader:
-        print('type', type(row))
+        # print('type', type(row))
         print('2. What is the primary designation of the first Near Earth Object in the neos.csv data set?', row['pdes'])
         break
 
@@ -30,20 +29,28 @@ with open(CSVInputFile, newline='') as csv_file:
             print('3. What is the diameter (in kilometers) of the NEO whose name is "Apollo"?', row['diameter'])
 
 iauCount = 0
+blanksCount = 0
 with open(CSVInputFile, newline='') as csv_file:
     reader = csv.DictReader(csv_file)
     for row in reader:
         if row['name'] != '':
             iauCount +=1
-    print('4. How many NEOs have IAU names in the data set?', iauCount)
+        else:
+            blanksCount +=1
+    print('4a. How many NEOs have IAU names in the data set?', iauCount)
+    print('4b. How many NEOs have Null names in the data set?', blanksCount)
 
 diamterCount = 0
+nullDiameter = 0
 with open(CSVInputFile, newline='') as csv_file:
     reader = csv.DictReader(csv_file)
     for row in reader:
         if row['diameter'] != '':
             diamterCount +=1
-    print('5. How many NEOs have diameters in the data set?', diamterCount)
+        if row['diameter'] == '':
+            nullDiameter +=1
+    print('5a. How many NEOs have diameters?', diamterCount)
+    print('5b. How many NEOs have No diameter?', diamterCount)
 
 
 
@@ -59,7 +66,7 @@ with open('data/cad.json', 'r') as file:
     jsonData = json.load(file)
     # if type is dict and count of keys < 50
     #print((jsonData.keys()))
-    print((jsonData['fields']))
+    # print('CAD fieldnames: ', jsonData['fields'])
     #print(len(jsonData['fields']))
     #print(type(jsonData['data']))
 
@@ -83,4 +90,16 @@ with open('data/cad.json', 'r') as file:
             result = jsonData['data'][i][8]
             print(round(float(result), 2),'km/s')
     #value2015CL = [dist for dist in jsonData if dist['name']]
+    print('CAD:')
+    print(jsonData['fields'])
     print(jsonData['data'][0])
+    # list of tuples
+    # print(list(zip(jsonData['fields'],jsonData['data'][0])))
+    # print(list(zip(jsonData['fields'],jsonData['data'][1])))
+    
+    # dict of key value pairs
+    print(dict(zip(jsonData['fields'],jsonData['data'][2])))
+
+    
+   
+    
