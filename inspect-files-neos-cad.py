@@ -98,7 +98,7 @@ with open('data/cad.json', 'r') as file:
     # print(list(zip(jsonData['fields'],jsonData['data'][1])))
     
     # dict of key value pairs
-    print(dict(zip(jsonData['fields'],jsonData['data'][2])))
+    print[(dict(zip(jsonData['fields'],jsonData['data'][2])))]
 
     
    
