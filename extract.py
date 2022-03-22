@@ -25,7 +25,13 @@ def load_neos(neo_csv_path):
     :return: A collection of `NearEarthObject`s.
     """
     # TODO: Load NEO data from the given CSV file.
-    return ()
+    neo_collection = []
+    with open(neo_csv_path) as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            neo_collection += [[row['id'], row['pdes'], row['name'] , row['diameter'], row['pha'], row['neo']]]
+
+    return neo_collection
 
 
 def load_approaches(cad_json_path):
@@ -35,4 +41,16 @@ def load_approaches(cad_json_path):
     :return: A collection of `CloseApproach`es.
     """
     # TODO: Load close approach data from the given JSON file.
-    return ()
+    cad_collection = []
+    # with openq('data/cad_10.json', 'r') as json_file:
+    with open(cad_json_path, 'r') as json_file:
+        json_reader = json.load(json_file)
+    for i in range(len(json_reader['data'])):
+        # cad_collection += [dict(zip(json_reader['fields'],json_reader['data'][i]))]  
+        # cad_collection += json_reader['fields'][0], json_reader['fields'][3], json_reader['fields'][5], json_reader['fields'][8], json_reader['fields'][1]  
+        cad_collection += [[json_reader['data'][i][0], json_reader['data'][i][3], json_reader['data'][i][5], json_reader['data'][i][8], json_reader['data'][i][1]]]
+   
+    print(cad_collection)
+    return cad_collection
+
+# load_approaches('data/cad_10.json')
