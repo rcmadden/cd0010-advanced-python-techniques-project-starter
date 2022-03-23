@@ -39,6 +39,9 @@ Task 2a
     - TODOs 2 functions to extract data from the csv and json files
     - accept command line arguments for the file path??
     - return a collection of NearEarthObject's and CloseApproach'es. What file are these in? Are these classes? what do I need to pass to them ?
+    - consider sets?
+        -Efficiently checking if an element is contained in a collection.
+        -Eliminating duplicate entries from a collection. 
 
 Task 2 & 3
     4. database.py - is this really a "database"? is this a python industry term of this structure?
