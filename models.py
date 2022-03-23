@@ -118,7 +118,10 @@ class CloseApproach:
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
         # self._designation = ''
-        self.time = cd_to_datetime(time)  # TODO: Use the cd_to_datetime function for this attribute.
+        if time == None:
+            self.time = None
+        else:
+            self.time = cd_to_datetime(time)  # TODO: Use the cd_to_datetime function for this attribute.
         # self.distance = 0.0
         # self.velocity = 0.0
         self._designation = _designation
