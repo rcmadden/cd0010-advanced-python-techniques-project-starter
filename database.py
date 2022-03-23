@@ -46,6 +46,12 @@ class NEODatabase:
 
         # TODO: Link together the NEOs and their close approaches.
 
+        # for every NearEarthObject
+            # find every CloseApproach with neo.designation == cad._designation
+            # neo.approaches[] += cad(des, cd, dist, and v_rel) time, designation, distance and velocity
+            # assign the CloseApproach's .neo attribue(curently NONE) == NearEarthObject{all attributes?}
+
+
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
 
@@ -61,6 +67,7 @@ class NEODatabase:
         """
         # TODO: Fetch an NEO by its primary designation.
         return None
+
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
