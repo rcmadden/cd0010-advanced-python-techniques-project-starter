@@ -17,11 +17,11 @@ quirks of the data set, such as missing names and unknown diameters.
 
 You'll edit this file in Task 1.
 """
-from ast import Pass
+# from ast import Pass
 # from asyncio.windows_events import NULL
-from curses.ascii import NUL
-from time import time
-from unicodedata import name
+# from curses.ascii import NUL
+# from time import time
+# from unicodedata import name
 from helpers import cd_to_datetime, datetime_to_str
 
 
@@ -39,7 +39,7 @@ class NearEarthObject:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, **kwargs):
+    def __init__(self, approaches=[], **kwargs):
     # def __init__(self, id, designation='', name=None, diameter=float('nan'), hazardous=False, full_name=None, approaches=[]):
 
         """Create a new `NearEarthObject`.
@@ -63,7 +63,7 @@ class NearEarthObject:
         # self.full_name = full_name # explore the datas full_name field
 
         # # Create an empty initial collection of linked approaches.
-        # self.approaches = approaches
+        self.approaches = approaches
         print(kwargs.items())
         #  setdefault(key[, default])
         
