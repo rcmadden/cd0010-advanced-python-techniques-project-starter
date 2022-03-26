@@ -42,9 +42,9 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
 
-        print(len(self._neos))        #23,967
-        print(len(self._approaches)) #406,785
-        i = 0
+        # print(len(self._neos))        #23,967
+        # print(len(self._approaches)) #406,785
+        # i = 0
 
         # TODO: What additional auxiliary data structures will be useful?
         # filtered dictionary?  # ['a0001036', '1036', 'Ganymed', '37.675', 'N', 'Y'],
@@ -73,28 +73,25 @@ class NEODatabase:
         # ['1036', '1911-Oct-15 19:16', '0.381362839855777', '17.0936978226911', '794'
          # [['a0001036', '1036', 'Ganymed', '37.675', 'N', 'Y']]]
 
-        #DICTS
-
-
         # xmethods to fetch an NEO by primary designation or by name,
         # ?collection of _neos that match filter
         # ?collection of _approaches that match filter 
         
         # TODO: Link together the NEOs and their close approaches.
 
-        i = 0
-        for i in range(len(self._approaches)):        
-            if self._approaches[i][0] == '1036':
-                print(self._approaches[i])   
-        # neo by designation
-        for i in range(len(self._neos)):
-            if self._neos[i][1] == '1036':
-                print(self._neos[i])  
+        # i = 0
+        # for i in range(len(self._approaches)):        
+        #     if self._approaches[i][0] == '1036':
+        #         print(self._approaches[i])   
+        # # neo by designation
+        # for i in range(len(self._neos)):
+        #     if self._neos[i][1] == '1036':
+        #         print(self._neos[i])  
         
-        # neo by name
-        for i in range(len(self._neos)):
-            if self._neos[i][2] == 'Ganymed':
-                print(self._neos[i])  
+        # # neo by name
+        # for i in range(len(self._neos)):
+        #     if self._neos[i][2] == 'Ganymed':
+        #         print(self._neos[i])  
    
 
             # if self._approaches[i][0] == '1036':
@@ -103,10 +100,28 @@ class NEODatabase:
                 # self._approaches[i][-1] = self._neos[i] # move this down? to include the list of close approaches?    
                 # neo.approaches[] += cad(des, cd, dist, and v_rel) time, designation, distance and velocity
                 # self._neos.approaches += self._approaches
-                # self._neos[i][-1].append(self._approaches[i])      
-            i+=i
-        # print(self._neos)
-        # print(self._approaches[:50])
+                # self._neos[i][-1].append(self._approaches[i])   
+                # 
+                # 
+        ##########################
+        # #DICTS 
+        # neos
+        # [{'id': 'a0000433', 'designation': '433', 'name': 'Eros', 'diameter': '16.84', 'hazardous': 'N', 'neo': 'Y', 'full_name': '   433 Eros (A898 PA)'}, {'id': 'a0000719', 'designation': '719', 'name': 'Albert', 'diameter': '', 'hazardous': 'N', 'neo': 'Y', 'full_name': '   719 Albert (A911 TB)'}, {'id': 'a0000887', 'designation': '887', 'name': 'Alinda', 'diameter': '4.2', 'hazardous': 'N', 'neo': 'Y', 'full_name': '   887 Alinda (A918 AA)'}, {'id': 'a0001036', 'designation': '1036', 'name': 'Ganymed', 'diameter': '37.675', 'hazardous': 'N', 'neo': 'Y', 'full_name': '  1036 Ganymed (A924 UB)'}, {'id': 'a0001221', 'designation': '1221', 'name': 'Amor', 'diameter': '1.0', 'hazardous': 'N', 'neo': 'Y', 'full_name': '  1221 Amor (1932 EA1)'}]
+
+        # close approaches
+        # [{'_designation': '170903', 'time': '1900-Jan-01 00:11', 'distance': '0.0921795123769547', 'velocity': '16.7523040362574', 'orbit_id': '105'}, {'_designation': '2005 OE3', 'time': '1900-Jan-01 02:33', 'distance': '0.414975519685102', 'velocity': '17.918395877175', 'orbit_id': '52'}, {'_designation': '2006 XO4', 'time': '1900-Jan-01 03:13', 'distance': '0.114291499199114', 'velocity': '7.39720266467069', 'orbit_id': '15'}, {'_designation': '7088', 'time': '1900-Jan-01 05:01', 'distance': '0.237367466253556', 'velocity': '4.78123058453747', 'orbit_id': '233'}, {'_designation': '2017 EE23', 'time': '1900-Jan-01 07:16', 'distance': '0.388708125934362', 'velocity': '9.93428771818077', 'orbit_id': '6'}] 
+        # 
+
+      
+
+        # for dic in self._neos:
+        #     for key in dic:
+        #         print(dic[key])  
+     
+        # print(self._neos[:5])
+        # print(self._approaches[:5])
+
+
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
 
@@ -121,6 +136,9 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # TODO: Fetch an NEO by its primary designation.
+        for i in range(len(self._neos)):
+            if self._neos[i]['designation'] == designation:
+                return self._neos[i]
 
         return None
 
@@ -140,6 +158,15 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
         # TODO: Fetch an NEO by its name.
+        for i in range(len(self._neos)):
+            if self._neos[i]['name'] == name:
+                return self._neos[i]
+
+        # result = [x for x in self._neos if x['name'] == name]
+        # if result:
+        #     return result
+        # else:
+        #     return None
         return None
 
     def query(self, filters=()):
@@ -159,3 +186,11 @@ class NEODatabase:
         # TODO: Generate `CloseApproach` objects that match all of the filters.
         for approach in self._approaches:
             yield approach
+
+
+        # for i in range(len(self._neos)):
+        #     for key in self._neos[i]:
+        #         print(self._neos[i][key])
+        keyValList = ['Ganymed','Eros']
+        # print([d for d in self._neos if d['name'] in keyValList])
+        print([x for x in self._neos if x['name'] == 'self._neos'])
