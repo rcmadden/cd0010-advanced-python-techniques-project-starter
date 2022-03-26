@@ -76,7 +76,7 @@ def load_approaches(cad_json_path):
         # fields        # cad_collection += json_reader['fields'][0], json_reader['fields'][3], json_reader['fields'][4], json_reader['fields'][7], json_reader['fields'][1]  
         # values list        # cad_collection += [[json_reader['data'][i][0], json_reader['data'][i][3], json_reader['data'][i][4], json_reader['data'][i][7], json_reader['data'][i][1]]]
 
-    print(cad_collection)
+    # print(cad_collection)
     return cad_collection
 
 # load_approaches('data/cad_10.json')
