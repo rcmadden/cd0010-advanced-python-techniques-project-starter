@@ -42,16 +42,71 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
 
-        # TODO: What additional auxiliary data structures will be useful?
+        print(len(self._neos))        #23,967
+        print(len(self._approaches)) #406,785
+        i = 0
 
+        # TODO: What additional auxiliary data structures will be useful?
+        # filtered dictionary?  # ['a0001036', '1036', 'Ganymed', '37.675', 'N', 'Y'],
+        # python3 main.py inspect --verbose --name Ganymed
+            # NEO 1036 (Ganymed) has a diameter of 37.675 km and is not potentially hazardous.
+            # - On 1911-10-15 19:16, '1036 (Ganymed)' approaches Earth at a distance of 0.38 au and a velocity of 17.09 km/s.
+            # - On 1924-10-17 00:51, '1036 (Ganymed)' approaches Earth at a distance of 0.50 au and a velocity of 19.36 km/s.
+            # - On 1998-10-14 05:12, '1036 (Ganymed)' approaches Earth at a distance of 0.46 au and a velocity of 13.64 km/s.
+            # - On 2011-10-13 00:04, '1036 (Ganymed)' approaches Earth at a distance of 0.36 au and a velocity of 14.30 km/s.
+            # - On 2024-10-13 01:56, '1036 (Ganymed)' approaches Earth at a distance of 0.37 au and a velocity of 16.33 km/s.
+            # - On 2037-10-15 18:31, '1036 (Ganymed)' approaches Earth at a distance of 0.47 au and a velocity of 18.68 km/s.
+        # LISTS
+        # data structure NearEarthObject
+        # ['a0001036', '1036', 'Ganymed', '37.675', 'N', 'Y'
+         # [ 
+          # ['1036', '1911-Oct-15 19:16', '0.381362839855777', '17.0936978226911', '794'],
+          # ['1036', '1924-Oct-17 00:51', '0.496274614603618', '19.3628654227641', '794'],
+          # ['1036', '1998-Oct-14 05:12', '0.464262946654528', '13.6399792167938', '794'],
+          # ['1036', '2011-Oct-13 00:04', '0.359104318674552', '14.304703704289', '794'],
+          # ['1036', '2024-Oct-13 01:56', '0.37409718734356', '16.3343740524295', '794'],
+          # ['1036', '2037-Oct-15 18:31', '0.466187644979184', '18.6810529423632', '794']
+         # ]
+        # ]
+
+        # data structure CloseApproach
+        # ['1036', '1911-Oct-15 19:16', '0.381362839855777', '17.0936978226911', '794'
+         # [['a0001036', '1036', 'Ganymed', '37.675', 'N', 'Y']]]
+
+        #DICTS
+
+
+        # xmethods to fetch an NEO by primary designation or by name,
+        # ?collection of _neos that match filter
+        # ?collection of _approaches that match filter 
+        
         # TODO: Link together the NEOs and their close approaches.
 
-        # for every NearEarthObject
-            # find every CloseApproach with neo.designation == cad._designation
-            # neo.approaches[] += cad(des, cd, dist, and v_rel) time, designation, distance and velocity
-            # assign the CloseApproach's .neo attribue(curently NONE) == NearEarthObject{all attributes?}
+        i = 0
+        for i in range(len(self._approaches)):        
+            if self._approaches[i][0] == '1036':
+                print(self._approaches[i])   
+        # neo by designation
+        for i in range(len(self._neos)):
+            if self._neos[i][1] == '1036':
+                print(self._neos[i])  
+        
+        # neo by name
+        for i in range(len(self._neos)):
+            if self._neos[i][2] == 'Ganymed':
+                print(self._neos[i])  
+   
 
-
+            # if self._approaches[i][0] == '1036':
+                # print(self._neos[i], self._approaches[i])          
+                # assign the CloseApproach's .neo attribue(curently NONE) == NearEarthObject{all attributes?}
+                # self._approaches[i][-1] = self._neos[i] # move this down? to include the list of close approaches?    
+                # neo.approaches[] += cad(des, cd, dist, and v_rel) time, designation, distance and velocity
+                # self._neos.approaches += self._approaches
+                # self._neos[i][-1].append(self._approaches[i])      
+            i+=i
+        # print(self._neos)
+        # print(self._approaches[:50])
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
 
@@ -66,6 +121,7 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # TODO: Fetch an NEO by its primary designation.
+
         return None
 
 
