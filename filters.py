@@ -17,7 +17,7 @@ iterator.
 You'll edit this file in Tasks 3a and 3c.
 """
 import operator
-
+from itertools import islice
 
 class UnsupportedCriterionError(NotImplementedError):
     """A filter criterion is unsupported."""
@@ -109,7 +109,16 @@ def create_filters(
     :return: A collection of filters for use with `query`.
     """
     # TODO: Decide how you will represent your filters.
-    return ()
+    return dict(date=date,
+                start_date=start_date,
+                end_date=end_date,
+                distance_min=distance_min,
+                distance_max=distance_max,
+                velocity_min=velocity_min,
+                velocity_max=velocity_max,
+                diameter_min=diameter_min,
+                diameter_max=diameter_max,
+                hazardous=hazardous)
 
 
 def limit(iterator, n=None):
@@ -122,4 +131,7 @@ def limit(iterator, n=None):
     :yield: The first (at most) `n` values from the iterator.
     """
     # TODO: Produce at most `n` values from the given iterator.
+    if n:
+        limitedIterator = islice(iterator, n)
+        return limitedIterator
     return iterator
