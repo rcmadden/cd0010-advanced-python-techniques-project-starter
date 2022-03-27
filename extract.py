@@ -79,5 +79,3 @@ def load_approaches(cad_json_path):
     # print(cad_collection)
     return cad_collection
 
-# load_approaches('data/cad_10.json')
-# Required - des, cd, dist, and v_rel + orbit_id
