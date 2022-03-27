@@ -145,7 +145,9 @@ class NEODatabase:
         #     return None
         return None
 
-    def query(self, filters=()):
+    # def query(self, filters=()):
+    def query(self, filters):
+
         """Query close approaches to generate those that match a collection of filters.
 
         This generates a stream of `CloseApproach` objects that match all of the
@@ -160,11 +162,25 @@ class NEODatabase:
         :return: A stream of matching `CloseApproach` objects.
         """
         # TODO: Generate `CloseApproach` objects that match all of the filters.
+
         self.filters = filters
         print('filters: ', self.filters)
-
+        
         for approach in self._approaches:
             print('yield approach: ', approach)
             yield approach
+
+        # return self.filters
+
+
+        # assign the aproaches['neo'] key to the matching neo['designation']
+        # carefull there are 400k self._approaches so get the filtered set first 
+        # convert this list comprehension into a loop
+        
+        # for i in range(len(self._approaches)):
+        #     if self._approaches[i]['name'] == name:
+        #         # only add approaches for mathches
+        #         self._approaches[i]['neo'] = ([x for x in self._approaches if x['_designation'] == self._neos[i]['designation']])
+        #         return self._approaches[i]    
 
      
