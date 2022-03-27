@@ -39,7 +39,7 @@ class NearEarthObject:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, approaches=[], **kwargs):
+    def __init__(self, **kwargs):
     # def __init__(self, id, designation='', name=None, diameter=float('nan'), hazardous=False, full_name=None, approaches=[]):
 
         """Create a new `NearEarthObject`.
@@ -63,10 +63,8 @@ class NearEarthObject:
         # self.full_name = full_name # explore the datas full_name field
 
         # # Create an empty initial collection of linked approaches.
-        self.approaches = approaches
-        print(kwargs.items())
-        #  setdefault(key[, default])
-        
+        # self.approaches = [] #create a new emplty approach for each neo
+            
         for key, value in kwargs.items():
             setattr(self, key, value)
 
@@ -123,7 +121,7 @@ class CloseApproach:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, neo=None, **kwargs):
+    def __init__(self, **kwargs):
     # def __init__(self, _designation='', time=None, distance=0.0, velocity=0.0, orbit_id=None, neo=None):
 
         """Create a new `CloseApproach`.
@@ -142,13 +140,11 @@ class CloseApproach:
         # self.velocity = float(velocity)
 
         # Create an attribute for the referenced NEO, originally None.
-        self.neo = None
         
         # self.orbit_id = orbit_id # explore the values in this field
-        # dict.setdefault(key, None)
+        # dict.setdefault(key, None) # can defaults be set?
         for key, value in kwargs.items():
             setattr(self, key, value)
-
             if hasattr(self,'distance') and type(self.distance) == str:
                 if(self.distance != ''):
                     self.distance = float(self.distance)
@@ -160,6 +156,7 @@ class CloseApproach:
                     self.velocity = float(self.velocity)
                 else:
                     self.velocity = float(0.0)
+
     @property
     def time_str(self):
         """Return a formatted representation of this `CloseApproach`'s approach time.
@@ -192,15 +189,9 @@ class CloseApproach:
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"On {self.time_str!r}, '{self._designation} (NEO {self.neo})' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s. Orbit Id {self.orbit_id}"
+        return f"On {self.time_str!r}, '{self._designation}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s. Orbit Id {self.orbit_id}"
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"CloseApproach(_designation={self._designation}, time={self.time_str!r}, distance={self.distance:.2f}, " \
                f"velocity={self.velocity:.2f}."
-
-# NearEarthObject(**{'id': 'a0000433', 'designation': '433', 'name': 'Eros', 'diameter': '16.84', 'hazardous': 'N', 'neo': 'Y', 'full_name': '433 Eros (A898 PA)'})
-
-# NearEarthObject(**{'id': 'a0000433', 'designation': '433', 'name': 'Eros', 'diameter': '', 'hazardous': 'N', 'neo': 'Y', 'full_name': '433 Eros (A898 PA)'})
-
-# CloseApproach(**{'_designation': '170903', 'time': '1900-Jan-01 00:11', 'distance': '0.0921795123769547', 'velocity': '16.7523040362574', 'orbit_id': '105'})
