@@ -175,10 +175,10 @@ class CloseApproach:
         # TODO: Use self.designation and self.name to build a fullname for this object.
         # print('BEFORE', self.time, type(self.time))
 
-        # if self.time == '':
-        #     self.time = None
-        # else:
-        #     self.time = cd_to_datetime(self.time)  # TODO: Use the cd_to_datetime function for this attribute.
+        if self.time == '':
+            self.time = None
+        else:
+            self.time = cd_to_datetime(self.time)  # TODO: Use the cd_to_datetime function for this attribute.
         # print('AFTER', self.time, type(self.time))
         # print('datetime_to_str', datetime_to_str(self.time), type(self.time))
         # return f"CloseAproach Time({self.time})"
@@ -195,3 +195,7 @@ class CloseApproach:
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"CloseApproach(_designation={self._designation}, time={self.time_str!r}, distance={self.distance:.2f}, " \
                f"velocity={self.velocity:.2f}."
+
+# use to run module from cli
+#CloseApproach(**{'_designation': '170903', 'time': '1900-Jan-01 00:11', 'distance': '0.0921795123769547', 'velocity': '16.7523040362574', 'orbit_id': '105'})
+# NearEarthObject(**{'id': 'a0000433', 'designation': '433', 'name': 'Eros', 'diameter': '', 'hazardous': 'N', 'neo': 'Y', 'full_name': '433 Eros (A898 PA)'})
