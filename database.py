@@ -166,10 +166,20 @@ class NEODatabase:
         self.filters = filters
         print('filters: ', self.filters)
         
+
+
         for approach in self._approaches:
-            print('yield approach: ', approach)
+            # print('yield approach: ', approach)
+            # if self.filters['date'] and self.filters['date'] != approach['time']:
+                # continue
+            if self.filters['distance_min'] and not self.filters['distance_min'] <= float(approach['distance']):
+                continue
             yield approach
 
+
+# str '1900-Jan-03 02:43'
+# time.strptime(approach_date,'%y-%b-%d %I:%M')
+# filter datetime.date 1969-07-29
         # return self.filters
 
 
