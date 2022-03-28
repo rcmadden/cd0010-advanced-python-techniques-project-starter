@@ -11,7 +11,8 @@ data on NEOs and close approaches extracted by `extract.load_neos` and
 
 You'll edit this file in Tasks 2 and 3.
 """
-
+import datetime
+from datetime import datetime
 
 class NEODatabase:
     """A database of near-Earth objects and their close approaches.
@@ -165,10 +166,16 @@ class NEODatabase:
 
         self.filters = filters
         print('filters: ', self.filters)
-
+        
         for approach in self._approaches[:10]:
-            if self.filters['date'] and self.filters['date'] != approach['time']:
+            if self.filters['date'] and self.filters['date'] != datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date():
                 continue
+            #   start_date: A `date` on or after which a matching `CloseApproach` occurs. NOT FILTERING
+            if (self.filters['start_date']) and (not (self.filters['start_date'] >= datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date())):
+                continue            
+            # end_date: A `date` on or before which a matching `CloseApproach` occurs.  NOT FILTERING
+            if self.filters['end_date'] and not (self.filters['end_date'] <= (datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date())):
+                continue 
             if self.filters['distance_min'] and not self.filters['distance_min'] <= float(approach['distance']):
                 continue
             if self.filters['distance_max'] and not self.filters['distance_max'] >= float(approach['distance']):
@@ -182,16 +189,25 @@ class NEODatabase:
             # carefull there are 400k self._approaches so get the filtered set first 
             # need the neo key for the 3 filters
             approach_neo = ([x for x in self._neos if x['designation'] == approach['_designation']])
-            # print(approach_neo)
             # list comprehension (instead of dict comprehension) to avoid TypeError: unhashable type: 'dict'
             approach['neo'] = approach_neo[0]
-            if self.filters['diameter_min'] and approach.get('neo'):
-                if not self.filters['diameter_min'] <= float(approach['neo']['diameter']):
-                    continue  
-            if self.filters['diameter_max'] and approach.get('neo'): 
-                if not self.filters['diameter_max'] >= float(approach['neo']['diameter']):
-                    continue  
-            #need neo hazard status
+
+            ##RETUNRS BLANK diameter
+            # TODO: handle case when no filters match?
+            # if self.filters['diameter_min'] and approach['neo'].get('diameter') != '':
+            #     if not (self.filters['diameter_min'] <= float(approach['neo']['diameter'])):
+            #         continue  
+
+            # if self.filters['diameter_max'] and approach['neo'].get('diameter') != '':
+            #     if not (self.filters['diameter_max'] >= float(approach['neo']['diameter'])):
+            #         continue  
+            # ALSO RETURNS BLANK diameters
+            if (self.filters['diameter_min'] and approach['neo']['diameter'] != '') and not self.filters['diameter_min'] <= float(approach['neo']['diameter']):
+                continue
+
+            if (self.filters['diameter_max'] and approach['neo']['diameter'] != '') and not self.filters['diameter_max'] >= float(approach['neo']['diameter']):
+                continue
+            # neo hazard status
             # filter hazardous = True and neo hazardous = Y
             # filter hazardous = False and neo hazardous = N
             # if self.filters['hazardous']:
@@ -199,17 +215,15 @@ class NEODatabase:
             #         continue  
             #     if self.filters['hazardous']==False and not approach['neo']['hazardous'] == 'N': # did not work?
             #         continue
+
             if self.filters.get('hazardous')==True and not approach['neo']['hazardous'] == 'Y':
-                    continue  
+                continue  
             if self.filters.get('hazardous')==False and not approach['neo']['hazardous'] == 'N':
-                    continue        
+                continue   
+
             yield approach
 
 
-# str '1900-Jan-03 02:43'
-# time.strptime(approach_date,'%y-%b-%d %I:%M')
-# filter datetime.date 1969-07-29
-        # return self.filters
 
 
       
