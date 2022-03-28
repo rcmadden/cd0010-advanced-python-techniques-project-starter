@@ -69,10 +69,17 @@ class NearEarthObject:
             setattr(self, key, value)
 
             if hasattr(self,'diameter') and type(self.diameter) == str:
-                if(self.diameter != ''):
+                if self.diameter != '':
                     self.diameter = float(self.diameter)  
-                else:
+                elif self.diameter == '':
                     self.diameter = float('nan')
+
+            # if hasattr(self,'diameter'):
+            #     if self.diameter != '':
+            #         self.diameter = float(self.diameter)  
+            #     else:
+            #         self.diameter = float('nan')
+
 
     @property
     def fullname(self):
@@ -99,8 +106,7 @@ class NearEarthObject:
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
-        # return f"NearEarthObject(id={self.id}, designation={self.designation!r}, name={self.name!r}, " \
-        #        f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
+
         return f"NearEarthObject(id={self.id}, designation={self.designation!r}, name={self.name!r}, " \
                f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
 
@@ -142,7 +148,8 @@ class CloseApproach:
         # Create an attribute for the referenced NEO, originally None.
         
         # self.orbit_id = orbit_id # explore the values in this field
-        # dict.setdefault(key, None) # can defaults be set?
+        # dict.setdefault(key, None) # can defaults be set? yes
+            # TODO: collections.defaultdict – dict subclass that calls a factory function to supply missing 
         for key, value in kwargs.items():
             setattr(self, key, value)
             if hasattr(self,'distance') and type(self.distance) == str:
