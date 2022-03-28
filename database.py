@@ -165,15 +165,44 @@ class NEODatabase:
 
         self.filters = filters
         print('filters: ', self.filters)
-        
 
-
-        for approach in self._approaches:
-            # print('yield approach: ', approach)
-            # if self.filters['date'] and self.filters['date'] != approach['time']:
-                # continue
+        for approach in self._approaches[:10]:
+            if self.filters['date'] and self.filters['date'] != approach['time']:
+                continue
             if self.filters['distance_min'] and not self.filters['distance_min'] <= float(approach['distance']):
                 continue
+            if self.filters['distance_max'] and not self.filters['distance_max'] >= float(approach['distance']):
+                continue
+            if self.filters['velocity_min'] and not self.filters['velocity_min'] <= float(approach['velocity']):
+                continue
+            if self.filters['velocity_max'] and not self.filters['velocity_max'] >= float(approach['velocity']):
+                continue 
+            
+            # assign the aproaches['neo'] key to the matching neo['designation']
+            # carefull there are 400k self._approaches so get the filtered set first 
+            # need the neo key for the 3 filters
+            approach_neo = ([x for x in self._neos if x['designation'] == approach['_designation']])
+            # print(approach_neo)
+            # list comprehension (instead of dict comprehension) to avoid TypeError: unhashable type: 'dict'
+            approach['neo'] = approach_neo[0]
+            if self.filters['diameter_min'] and approach.get('neo'):
+                if not self.filters['diameter_min'] <= float(approach['neo']['diameter']):
+                    continue  
+            if self.filters['diameter_max'] and approach.get('neo'): 
+                if not self.filters['diameter_max'] >= float(approach['neo']['diameter']):
+                    continue  
+            #need neo hazard status
+            # filter hazardous = True and neo hazardous = Y
+            # filter hazardous = False and neo hazardous = N
+            # if self.filters['hazardous']:
+            #     if self.filters['hazardous']==True and not approach['neo']['hazardous'] == 'Y': # worked
+            #         continue  
+            #     if self.filters['hazardous']==False and not approach['neo']['hazardous'] == 'N': # did not work?
+            #         continue
+            if self.filters.get('hazardous')==True and not approach['neo']['hazardous'] == 'Y':
+                    continue  
+            if self.filters.get('hazardous')==False and not approach['neo']['hazardous'] == 'N':
+                    continue        
             yield approach
 
 
@@ -183,14 +212,12 @@ class NEODatabase:
         # return self.filters
 
 
-        # assign the aproaches['neo'] key to the matching neo['designation']
-        # carefull there are 400k self._approaches so get the filtered set first 
-        # convert this list comprehension into a loop
-        
-        # for i in range(len(self._approaches)):
-        #     if self._approaches[i]['name'] == name:
+      
+        # # for i in range(len(self._approaches)):
+        #     if approach['_designation']  == name:
         #         # only add approaches for mathches
-        #         self._approaches[i]['neo'] = ([x for x in self._approaches if x['_designation'] == self._neos[i]['designation']])
+        #         approach_neo = ([x for x in self._neos if x['designation'] == approach['designation']])
+        #         approach['neo'] = approach_neo[0]
         #         return self._approaches[i]    
 
      
