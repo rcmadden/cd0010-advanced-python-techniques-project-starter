@@ -222,16 +222,3 @@ class NEODatabase:
                 continue   
 
             yield approach
-
-
-
-
-      
-        # # for i in range(len(self._approaches)):
-        #     if approach['_designation']  == name:
-        #         # only add approaches for mathches
-        #         approach_neo = ([x for x in self._neos if x['designation'] == approach['designation']])
-        #         approach['neo'] = approach_neo[0]
-        #         return self._approaches[i]    
-
-     
