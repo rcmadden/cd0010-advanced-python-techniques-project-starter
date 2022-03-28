@@ -167,14 +167,14 @@ class NEODatabase:
         self.filters = filters
         print('filters: ', self.filters)
         
-        for approach in self._approaches[:10]:
+        for approach in self._approaches:
             if self.filters['date'] and self.filters['date'] != datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date():
                 continue
-            #   start_date: A `date` on or after which a matching `CloseApproach` occurs. NOT FILTERING
-            if (self.filters['start_date']) and (not (self.filters['start_date'] >= datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date())):
+            #   start_date: A `date` on or after which a matching `CloseApproach` occurs. 
+            if self.filters['start_date'] and self.filters['start_date'] >= datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date():
                 continue            
-            # end_date: A `date` on or before which a matching `CloseApproach` occurs.  NOT FILTERING
-            if self.filters['end_date'] and not (self.filters['end_date'] <= (datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date())):
+            # end_date: A `date` on or before which a matching `CloseApproach` occurs.
+            if self.filters['end_date'] and (self.filters['end_date'] <= (datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date())):
                 continue 
             if self.filters['distance_min'] and not self.filters['distance_min'] <= float(approach['distance']):
                 continue
@@ -201,11 +201,11 @@ class NEODatabase:
             # if self.filters['diameter_max'] and approach['neo'].get('diameter') != '':
             #     if not (self.filters['diameter_max'] >= float(approach['neo']['diameter'])):
             #         continue  
-            # ALSO RETURNS BLANK diameters
-            if (self.filters['diameter_min'] and approach['neo']['diameter'] != '') and not self.filters['diameter_min'] <= float(approach['neo']['diameter']):
+            # still ALSO RETURNS BLANK diameters
+            if (self.filters['diameter_min'] and approach['neo']['diameter'] != '') and self.filters['diameter_min'] >= float(approach['neo']['diameter']):
                 continue
 
-            if (self.filters['diameter_max'] and approach['neo']['diameter'] != '') and not self.filters['diameter_max'] >= float(approach['neo']['diameter']):
+            if (self.filters['diameter_max'] and approach['neo']['diameter'] != '') and self.filters['diameter_max'] <= float(approach['neo']['diameter']):
                 continue
             # neo hazard status
             # filter hazardous = True and neo hazardous = Y
