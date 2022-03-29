@@ -165,7 +165,7 @@ class NEODatabase:
         # TODO: Generate `CloseApproach` objects that match all of the filters.
 
         self.filters = filters
-        print('filters: ', self.filters)
+        # print('filters: ', self.filters)
         
         for approach in self._approaches:
             if self.filters['date'] and self.filters['date'] != datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date():
@@ -201,7 +201,8 @@ class NEODatabase:
             # if self.filters['diameter_max'] and approach['neo'].get('diameter') != '':
             #     if not (self.filters['diameter_max'] >= float(approach['neo']['diameter'])):
             #         continue  
-            # still ALSO RETURNS BLANK diameters
+            # still ALSO RETURNS BLANK diameters 
+            # convert diameter data type to 'nan'(somewher)
             if (self.filters['diameter_min'] and approach['neo']['diameter'] != '') and self.filters['diameter_min'] >= float(approach['neo']['diameter']):
                 continue
 
