@@ -72,7 +72,7 @@ def load_approaches(cad_json_path):
 
     # def __init__(self, _designation='', time=None, distance=0.0, velocity=0.0, orbit_id=None, neo=None):
 
-        cad_collection += [dict(zip(['_designation', 'time', 'distance', 'velocity', 'orbit_id'], [json_reader['data'][i][0], json_reader['data'][i][3], json_reader['data'][i][4], json_reader['data'][i][7], json_reader['data'][i][1]]))] 
+        cad_collection += [dict(zip(['_designation', 'time', 'distance', 'velocity'], [json_reader['data'][i][0], json_reader['data'][i][3], json_reader['data'][i][4], json_reader['data'][i][7]]))] 
         # fields        # cad_collection += json_reader['fields'][0], json_reader['fields'][3], json_reader['fields'][4], json_reader['fields'][7], json_reader['fields'][1]  
         # values list        # cad_collection += [[json_reader['data'][i][0], json_reader['data'][i][3], json_reader['data'][i][4], json_reader['data'][i][7], json_reader['data'][i][1]]]
 
