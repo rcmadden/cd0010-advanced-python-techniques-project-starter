@@ -3,3 +3,5 @@ __pycache__/
 tests/__pyache__/
 progress.md
 .DS_Store
+results.csv
+results.json
