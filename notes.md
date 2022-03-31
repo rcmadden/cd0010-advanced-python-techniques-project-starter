@@ -134,7 +134,7 @@ Tasks to Complete Overview:
 [ ] Task 1: Build models to represent the data. (models.py)
     *[x] Write __init__ and __str__ methods for NearEarthObject and CloseApproach
     *[x] __str__ vs __rpr__ ?? str human readable, rpr machine readable
-[ ] Task 2: Extract the data into a custom database (2a. extract.py and 2.b database.py)
+[x] Task 2: Extract the data into a custom database (2a. extract.py and 2.b database.py)
     * testing - run from command line with optional command line arguments arg1, arg2: $ python3 -m pdb app.py arg1 arg2
     * pdb commands: https://docs.python.org/3/library/pdb.html
     - able to run the inspect subcommand.
@@ -145,14 +145,54 @@ Tasks to Complete Overview:
 
 [ ] Task 3: Create filters to query the database to generate a stream of matching CloseApproach objects, and limit the result size. (3a. & 3.c filters.py and 3.b database.py)
     - able to run the query subcommand without the --outfile argument
-    Task 3a: Create filters. (filters.py) - Define a hierarchy of Filters.
+[x] Task 3a: Create filters. (filters.py) - Define a hierarchy of Filters.
     Implement create_filters to create a collection of filters from user-specified criteria.
 
-    Task 3b: Query matching close approaches (database.py) Implement the query method to generate a stream of CloseApproaches that match the given filters.
+[6/10] Task 3b: Query matching close approaches (database.py) Implement the query method to generate a stream of CloseApproaches that match the given filters.
     
-    Task 3c: Limit results. (filter.py) Write limit to produce only the first values from a generator.
+[x] Task 3c: Limit results. (filter.py) Write limit to produce only the first values from a generator.
 
 
-[ ] Task 4: Save the data to a file. (write.py)
+[] Task 4: Save the data to a file. (write.py)
     -  able to run 
     Implement write_to_csv and write_to_json to save structured data to a formatted file.
+
+collections.namedtuple – factory function for creating tuple subclasses with named fields
+collections.defaultdict – dict subclass that calls a factory function to supply missing 
+https://docs.python.org/3/library/collections.html
+
+RETROSPECTIVE:
+- Task 0: Inspect data. (`data/neos.csv` and `data/cad.json`)
+- Task 1: Build models. (`models.py`)
+  - Write `__init__` and `__str__` methods for `NearEarthObject` and `CloseApproach`
+- Task 2a: Extract data. (`extract.py`)
+  - Implement `load_neos` and `load_approaches` to read data from CSV and JSON files.
+- Task 2b: Process data. (`database.py`)
+  - Implement the constructor for `NEODatabase`, preprocessing the data to help with future queries.
+  - Write methods to get NEOs by primary designation or by name.
+- Task 3a: Create filters. (`filters.py`)
+  - Define a hierarchy of `Filter`s.
+  - Implement `create_filters` to create a collection of filters from user-specified criteria.
+- Task 3b: Query matching close approaches (`database.py`)
+  - Implement the `query` method to generate a stream of `CloseApproach`es that match the given filters.
+- Task 3c: Limit results. (`filter.py`)
+  - Write `limit` to produce only the first values from a generator.
+- Task 4: Save data. (`write.py`)
+  - Implement `write_to_csv` and `write_to_json` to save structured data to a formatted file.
+
+Task 3a:
+-convert and compare datatypes
+-nested/compound if statements for 4 of 10 filters
+-assigning a dict value from a list of dicts without using itertools hack? or pythonic? 
+
+Task 4:
+This command only returns the dict not the __repr__ or __str__ output below
+$ python3 main.py inspect --verbose --name Ganymed
+NEO 1036 (Ganymed) has a diameter of 37.675 km and is not potentially hazardous.
+- On 1911-10-15 19:16, '1036 (Ganymed)' approaches Earth at a distance of 0.38 au and a velocity of 17.09 km/s.
+- On 1924-10-17 00:51, '1036 (Ganymed)' approaches Earth at a distance of 0.50 au and a velocity of 19.36 km/s.
+- On 1998-10-14 05:12, '1036 (Ganymed)' approaches Earth at a distance of 0.46 au and a velocity of 13.64 km/s.
+- On 2011-10-13 00:04, '1036 (Ganymed)' approaches Earth at a distance of 0.36 au and a velocity of 14.30 km/s.
+- On 2024-10-13 01:56, '1036 (Ganymed)' approaches Earth at a distance of 0.37 au and a velocity of 16.33 km/s.
+- On 2037-10-15 18:31, '1036 (Ganymed)' approaches Earth at a distance of 0.47 au and a velocity of 18.68 km/s.
+```
