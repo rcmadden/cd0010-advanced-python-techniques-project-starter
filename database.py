@@ -43,56 +43,6 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
 
-        # this takes >12 minuetes to run only do this in function/filters
-        # for i in range(len(self._neos)):
-            # self._neos[i]['approaches'] = ([x for x in self._approaches if x['_designation'] == self._neos[i]['designation']])
-
-
-        # TODO: What additional auxiliary data structures will be useful?
-        # add_neo and add_approaches proper
-        # filtered dictionary?  # ['a0001036', '1036', 'Ganymed', '37.675', 'N', 'Y'],
-        # python3 main.py inspect --verbose --name Ganymed
-            # NEO 1036 (Ganymed) has a diameter of 37.675 km and is not potentially hazardous.
-            # - On 1911-10-15 19:16, '1036 (Ganymed)' approaches Earth at a distance of 0.38 au and a velocity of 17.09 km/s.
-            # - On 1924-10-17 00:51, '1036 (Ganymed)' approaches Earth at a distance of 0.50 au and a velocity of 19.36 km/s.
-            # - On 1998-10-14 05:12, '1036 (Ganymed)' approaches Earth at a distance of 0.46 au and a velocity of 13.64 km/s.
-            # - On 2011-10-13 00:04, '1036 (Ganymed)' approaches Earth at a distance of 0.36 au and a velocity of 14.30 km/s.
-            # - On 2024-10-13 01:56, '1036 (Ganymed)' approaches Earth at a distance of 0.37 au and a velocity of 16.33 km/s.
-            # - On 2037-10-15 18:31, '1036 (Ganymed)' approaches Earth at a distance of 0.47 au and a velocity of 18.68 km/s.
-
-        
-        # TODO: Link together the NEOs and their close approaches.
-
-        ##########################
-        # #DICTS 
-        # neos
-        # [{'id': 'a0000433', 'designation': '433', 'name': 'Eros', 'diameter': '16.84', 'hazardous': 'N', 'neo': 'Y', 'full_name': '   433 Eros (A898 PA)'}, {'id': 'a0000719', 'designation': '719', 'name': 'Albert', 'diameter': '', 'hazardous': 'N', 'neo': 'Y', 'full_name': '   719 Albert (A911 TB)'}, {'id': 'a0000887', 'designation': '887', 'name': 'Alinda', 'diameter': '4.2', 'hazardous': 'N', 'neo': 'Y', 'full_name': '   887 Alinda (A918 AA)'}, {'id': 'a0001036', 'designation': '1036', 'name': 'Ganymed', 'diameter': '37.675', 'hazardous': 'N', 'neo': 'Y', 'full_name': '  1036 Ganymed (A924 UB)'}, {'id': 'a0001221', 'designation': '1221', 'name': 'Amor', 'diameter': '1.0', 'hazardous': 'N', 'neo': 'Y', 'full_name': '  1221 Amor (1932 EA1)'}]
-
-        # close approaches
-        # [{'_designation': '170903', 'time': '1900-Jan-01 00:11', 'distance': '0.0921795123769547', 'velocity': '16.7523040362574', 'orbit_id': '105'}, {'_designation': '2005 OE3', 'time': '1900-Jan-01 02:33', 'distance': '0.414975519685102', 'velocity': '17.918395877175', 'orbit_id': '52'}, {'_designation': '2006 XO4', 'time': '1900-Jan-01 03:13', 'distance': '0.114291499199114', 'velocity': '7.39720266467069', 'orbit_id': '15'}, {'_designation': '7088', 'time': '1900-Jan-01 05:01', 'distance': '0.237367466253556', 'velocity': '4.78123058453747', 'orbit_id': '233'}, {'_designation': '2017 EE23', 'time': '1900-Jan-01 07:16', 'distance': '0.388708125934362', 'velocity': '9.93428771818077', 'orbit_id': '6'}] 
-        # 
-        # print(len(self._neos))        #23,967
-        # print(len(self._approaches)) #406,785
-        
-        # neos with approaches:
-        # ganymed = {'id': 'a0001036', 'designation': '1036', 'name': 'Ganymed', 'diameter': '37.675', 'hazardous': 'N', 'neo': 'Y', 'full_name': '  1036 Ganymed (A924 UB)', 'approaches': 
-        # [{'_designation': '1036', 'time': '1911-Oct-15 19:16', 'distance': '0.381362839855777', 'velocity': '17.0936978226911', 'orbit_id': '794'}, {'_designation': '1036', 'time': '1924-Oct-17 00:51', 'distance': '0.496274614603618', 'velocity': '19.3628654227641', 'orbit_id': '794'}, {'_designation': '1036', 'time': '1998-Oct-14 05:12', 'distance': '0.464262946654528', 'velocity': '13.6399792167938', 'orbit_id': '794'}, {'_designation': '1036', 'time': '2011-Oct-13 00:04', 'distance': '0.359104318674552', 'velocity': '14.304703704289', 'orbit_id': '794'}, {'_designation': '1036', 'time': '2024-Oct-13 01:56', 'distance': '0.37409718734356', 'velocity': '16.3343740524295', 'orbit_id': '794'}, {'_designation': '1036', 'time': '2037-Oct-15 18:31', 'distance': '0.466187644979184', 'velocity': '18.6810529423632', 'orbit_id': '794'}]}
-        
-        #`.approaches` attribute of each NEO 
-        # has a collection of that NEO's close approaches
-        # the `.neo` attribute of each close approach references the appropriate NEO
-
-        #########
-        # approaches[x].neo property == neos['designation']
-
-        # approaches0=self._approaches[0]
-
-        # approaches0['approaches']=[]
-
-        # approaches0['approaches'].append({'_designation': '170903', 'time': '1900-Jan-01 00:11', 'distance': '0.0921795123769547', 'velocity': '16.7523040362574', 'orbit_id': '105'})
-
-        # approaches0['approaches'][0]['_designation']
-        
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
@@ -107,11 +57,10 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # TODO: Fetch an NEO by its primary designation.
 
         for i in range(len(self._neos)):
             if self._neos[i]['designation'] == designation:
-                # only add approaches for mathches
+                # ELABORATE only add approaches for mathches
                 self._neos[i]['approaches'] = ([x for x in self._approaches if x['_designation'] == self._neos[i]['designation']])
                 return self._neos[i]
 
@@ -132,18 +81,12 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        # TODO: Fetch an NEO by its name.
         for i in range(len(self._neos)):
             if self._neos[i]['name'] == name:
                 # only add approaches for mathches
                 self._neos[i]['approaches'] = ([x for x in self._approaches if x['_designation'] == self._neos[i]['designation']])
                 return self._neos[i]
-        
-        # result = [x for x in self._neos if x['name'] == name]
-        # if result:
-        #     return result
-        # else:
-        #     return None
+
         return None
 
     # def query(self, filters=()):
@@ -162,18 +105,14 @@ class NEODatabase:
         :param filters: A collection of filters capturing user-specified criteria.
         :return: A stream of matching `CloseApproach` objects.
         """
-        # TODO: Generate `CloseApproach` objects that match all of the filters.
 
         self.filters = filters
-        # print('filters: ', self.filters)
         
         for approach in self._approaches:
             if self.filters['date'] and self.filters['date'] != datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date():
                 continue
-            #   start_date: A `date` on or after which a matching `CloseApproach` occurs. 
             if self.filters['start_date'] and self.filters['start_date'] >= datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date():
                 continue            
-            # end_date: A `date` on or before which a matching `CloseApproach` occurs.
             if self.filters['end_date'] and (self.filters['end_date'] <= (datetime.strptime(approach['time'], "%Y-%b-%d %H:%M").date())):
                 continue 
             if self.filters['distance_min'] and not self.filters['distance_min'] <= float(approach['distance']):
@@ -185,37 +124,20 @@ class NEODatabase:
             if self.filters['velocity_max'] and not self.filters['velocity_max'] >= float(approach['velocity']):
                 continue 
             
-            # assign the aproaches['neo'] key to the matching neo['designation']
+            # ELABORATE assign the aproaches['neo'] key to the matching neo['designation']
             # carefull there are 400k self._approaches so get the filtered set first 
-            # need the neo key for the 3 filters
+            # need the neo key for the 3 filters that follow
             approach_neo = ([x for x in self._neos if x['designation'] == approach['_designation']])
             # list comprehension (instead of dict comprehension) to avoid TypeError: unhashable type: 'dict'
             approach['neo'] = approach_neo[0]
 
-            ##RETUNRS BLANK diameter
-            # TODO: handle case when no filters match?
-            # if self.filters['diameter_min'] and approach['neo'].get('diameter') != '':
-            #     if not (self.filters['diameter_min'] <= float(approach['neo']['diameter'])):
-            #         continue  
+            if self.filters['diameter_min'] and approach['neo'].get('diameter') != '':
+                if not (self.filters['diameter_min'] <= float(approach['neo']['diameter'])):
+                    continue  
 
-            # if self.filters['diameter_max'] and approach['neo'].get('diameter') != '':
-            #     if not (self.filters['diameter_max'] >= float(approach['neo']['diameter'])):
-            #         continue  
-            # still ALSO RETURNS BLANK diameters 
-            # convert diameter data type to 'nan'(somewher)
-            if (self.filters['diameter_min'] and approach['neo']['diameter'] != '') and self.filters['diameter_min'] >= float(approach['neo']['diameter']):
-                continue
-
-            if (self.filters['diameter_max'] and approach['neo']['diameter'] != '') and self.filters['diameter_max'] <= float(approach['neo']['diameter']):
-                continue
-            # neo hazard status
-            # filter hazardous = True and neo hazardous = Y
-            # filter hazardous = False and neo hazardous = N
-            # if self.filters['hazardous']:
-            #     if self.filters['hazardous']==True and not approach['neo']['hazardous'] == 'Y': # worked
-            #         continue  
-            #     if self.filters['hazardous']==False and not approach['neo']['hazardous'] == 'N': # did not work?
-            #         continue
+            if self.filters['diameter_max'] and approach['neo'].get('diameter') != '':
+                if not (self.filters['diameter_max'] >= float(approach['neo']['diameter'])):
+                    continue  
 
             if self.filters.get('hazardous')==True and not approach['neo']['hazardous'] == 'Y':
                 continue  
