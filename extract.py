@@ -40,7 +40,10 @@ def load_neos(neo_csv_path):
 
             #  neo_collection.append((dict([('id', row['id']),('pdes',row['pdes']), ('name', row['name']),('diameter', row['diameter']),('pha', row['pha']),('neo', row['neo']),('full_name', row['full_name'])])))
 
-             neo_collection.append((dict([('id', row['id']),('designation',row['pdes']), ('name', row['name']),('diameter', row['diameter']),('hazardous', row['pha']),('neo', row['neo']),('full_name', row['full_name'])])))
+            #  neo_collection.append((dict([('id', row['id']),('designation',row['pdes']), ('name', row['name']),('diameter', row['diameter']),('hazardous', row['pha']),('neo', row['neo']),('full_name', row['full_name'])])))
+            
+            # removed id from above
+            neo_collection.append((dict([('designation',row['pdes']), ('name', row['name']),('diameter', row['diameter']),('hazardous', row['pha']),('neo', row['neo']),('full_name', row['full_name'])])))
 
             # neo_collection += dict([('id', row['id']),('pdes',row['pdes']), ('name', row['name']),('diameter', row['diameter']),('pha', row['pha']),('neo', row['neo']),('full_name', row['full_name'])])
 
@@ -48,6 +51,12 @@ def load_neos(neo_csv_path):
 
             # neo_collection['id'] = row['id'],neo_collection['pdes'] = row['pdes'], neo_collection['name'] = row['name'],neo_collection['diameter'] = row['diameter'],neo_collection['pha'] = row['pha'],neo_collection['neo'] = row['neo']
 
+        NEOcollection = []
+        for i in range(len(neo_collection)):
+            NEOcollection.append(NearEarthObject(neo_collection[i]))
+            # TODO: return list of NearEarthObject instances?
+            print(type(NEOcollection))
+        return NEOcollection
     return neo_collection
 
 
@@ -76,6 +85,14 @@ def load_approaches(cad_json_path):
         # fields        # cad_collection += json_reader['fields'][0], json_reader['fields'][3], json_reader['fields'][4], json_reader['fields'][7], json_reader['fields'][1]  
         # values list        # cad_collection += [[json_reader['data'][i][0], json_reader['data'][i][3], json_reader['data'][i][4], json_reader['data'][i][7], json_reader['data'][i][1]]]
 
-    # print(cad_collection)
-    return cad_collection
+    cap_collection = []
+    for i in range(len(cad_collection)):
+        cap_collection.append(CloseApproach(cad_collection[i]))
+        CloseApproach(cad_collection[i])
+
+        # TODO: return list of CloseApproach instances?
+    return cap_collection
+        # return cad_collection
+
+    # return cad_collection
 

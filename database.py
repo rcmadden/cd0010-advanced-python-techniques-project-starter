@@ -40,8 +40,13 @@ class NEODatabase:
         :param neos: A collection of `NearEarthObject`s.
         :param approaches: A collection of `CloseApproach`es.
         """
+        # dict keys
         self._neos = neos
         self._approaches = approaches
+        # attributes
+        # self._neos.approaches = [] #AttributeError: 'list' object has no attribute 'approaches'
+            # self.assertIsInstance(approach, CloseApproach)
+            # AssertionError: {'_designation': '2020 AY1', 'time': '2020-Jan-01 00:54', 'distance': '0.0211660525256395', 'velocity': '5.62203195551878'} is not an instance of <class 'models.CloseApproach'>
 
         # this takes >12 minuetes to run only do this in function/filters
         # for i in range(len(self._neos)):
@@ -108,11 +113,13 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # TODO: Fetch an NEO by its primary designation.
+        # approaches.update(neo.approaches)
 
         for i in range(len(self._neos)):
             if self._neos[i]['designation'] == designation:
                 # only add approaches for mathches
                 self._neos[i]['approaches'] = ([x for x in self._approaches if x['_designation'] == self._neos[i]['designation']])
+                self._neos[i].approaches = ([x for x in self._approaches if x['_designation'] == self._neos[i]['designation']])
                 return self._neos[i]
 
         return None
@@ -133,12 +140,18 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
         # TODO: Fetch an NEO by its name.
-        for i in range(len(self._neos)):
+        for i in range(len(self._neos[:5])):
+            print(self._neos)
             if self._neos[i]['name'] == name:
-                # only add approaches for mathches
+            #     # only add approaches for mathches
                 self._neos[i]['approaches'] = ([x for x in self._approaches if x['_designation'] == self._neos[i]['designation']])
-                return self._neos[i]
-        
+            #     print('self._neos',[i],': ' ,self._neos[i])
+            #     current_neo = self._neos[i]
+
+            #     print("hasatter current_neo.approaches: ",hasattr(current_neo, 'approaches'))
+            #     self._neos[i].approaches = ([x for x in self._approaches if x['_designation'] == self._neos[i]['designation']])
+            return self._neos[i]
+
         # result = [x for x in self._neos if x['name'] == name]
         # if result:
         #     return result
@@ -191,6 +204,7 @@ class NEODatabase:
             approach_neo = ([x for x in self._neos if x['designation'] == approach['_designation']])
             # list comprehension (instead of dict comprehension) to avoid TypeError: unhashable type: 'dict'
             approach['neo'] = approach_neo[0]
+            approach.neo = approach_neo[0]
 
             ##RETUNRS BLANK diameter
             # TODO: handle case when no filters match?

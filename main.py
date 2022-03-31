@@ -9,14 +9,15 @@ This script can be invoked from the command line::
 
 The `inspect` subcommand looks up an NEO by name or by primary designation, and
 optionally lists all of that NEO's known close approaches:
-
-    $ python3 main.py inspect --pdes 1P
-    $ python3 main.py inspect --name Halley
-    $ python3 main.py inspect --verbose --name Halley
-
+                                                        launch.json file formats:
+    $ python3 main.py inspect --pdes 1P                   "inspect", "--pdes", "1P"
+    $ python3 main.py inspect --name Halley               "inspect", "--name", "Halley"
+    $ python3 main.py inspect --verbose --name Halley     "inspect", "--verbose", "--name", "Halley"
+                                            designation   "inspect", "--pdes", "1036" 
+                                                          "inspect", "--name", "Ganymed"
 The `query` subcommand searches for close approaches that match given criteria:
 
-    $ python3 main.py query --date 1969-07-29
+    $ python3 main.py query --date 1969-07-29             "query", "--date", "1969-07-29"
     $ python3 main.py query --start-date 2020-01-01 --end-date 2020-01-31 --max-distance 0.025
     $ python3 main.py query --start-date 2050-01-01 --min-distance 0.2 --min-velocity 50
     $ python3 main.py query --date 2020-03-14 --max-velocity 25 --min-diameter 0.5 --hazardous
@@ -26,7 +27,7 @@ The `query` subcommand searches for close approaches that match given criteria:
 The set of results can be limited in size and/or saved to an output file in CSV
 or JSON format:
 
-    $ python3 main.py query --limit 5 --outfile results.csv
+    $ python3 main.py query --limit 5 --outfile results.csv      "query", "--limit 5", "--outfile", "results.csv"
     $ python3 main.py query --limit 15 --outfile results.json
 
 The `interactive` subcommand loads the NEO database and spawns an interactive
@@ -191,6 +192,8 @@ def inspect(database, pdes=None, name=None, verbose=False):
     print(neo)
     if verbose:
         for approach in neo.approaches:
+        #   for approach in neo['approaches']:
+
             print(f"- {approach}")
     return neo
 
