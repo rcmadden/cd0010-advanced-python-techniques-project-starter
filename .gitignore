@@ -5,3 +5,5 @@ progress.md
 .DS_Store
 results.csv
 results.json
+data/cad_10.json
+data/cad.json
