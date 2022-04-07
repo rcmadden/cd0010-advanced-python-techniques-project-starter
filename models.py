@@ -46,11 +46,11 @@ class NearEarthObject:
         # You should coerce these values to their appropriate data type and
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
-        # self.designation = ''
-        # self.name = None
-        # self.diameter = float('nan')
-        # self.hazardous = False
-        # self.id = id
+        self.designation = ''
+        self.name = None
+        self.diameter = float('nan')
+        self.hazardous = False
+        self.id = id
         # self.designation = designation # unique
         # self.name = name # may be missing but will have id
         # self.diameter = diameter # optional
@@ -61,11 +61,13 @@ class NearEarthObject:
         self._approaches = approaches #create a new emplty approach for each neo
         # print(self.approaches)
         # approaches.update(neo.approaches)
-
+        
+        # should this be a function?
+        # constructor assigns variables function recals them 
         for key, value in kwargs.items():
             print(key, value)
-            # setattr(self, key, value)
-            setattr(NearEarthObject, key, value)
+            setattr(self, key, value)
+            # setattr(NearEarthObject, key, value)
             # print(NearEarthObject, key, value)
 
             if hasattr(self,'diameter') and type(self.diameter) == str:
@@ -73,7 +75,7 @@ class NearEarthObject:
                     self.diameter = float(self.diameter)  
                 elif self.diameter == '':
                     self.diameter = float('nan')
-            print(NearEarthObject, key, value)
+            # print(NearEarthObject, key, value)
             # if hasattr(self,'diameter'):
             #     if self.diameter != '':
             #         self.diameter = float(self.diameter)  
@@ -144,9 +146,10 @@ class CloseApproach:
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
-        # self._designation = ''
-        # self.distance = 0.0
-        # self.velocity = 0.0
+        self._designation = ''
+        self.time = None  # TODO: Use the cd_to_datetime function for this attribute.
+        self.distance = 0.0
+        self.velocity = 0.0
         # self._designation = _designation
         # self.distance = float(distance)
         # self.velocity = float(velocity)
